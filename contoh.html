@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tegar Cash - Anda Bayar, Kami Gubyar!</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        emerald: {
+                            400: '#34d399',
+                            500: '#10b981',
+                            600: '#059669',
+                            900: '#064e3b',
+                        },
+                        slate: {
+                            800: '#1e293b',
+                            900: '#0f172a',
+                            950: '#020617',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Custom styling for range inputs */
+        input[type=range] {
+            -webkit-appearance: none;
+            background: transparent;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 24px;
+            width: 24px;
+            border-radius: 50%;
+            background: #10b981;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+            margin-top: -8px;
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 8px;
+            cursor: pointer;
+            background: #334155;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col justify-between selection:bg-emerald-500 selection:text-white">
+
+    <!-- Header / Navbar -->
+    <header class="sticky top-0 z-40 bg-slate-900/80 backdrop-blur-md border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="bg-emerald-500 p-2 rounded-xl text-slate-950">
+                    <i data-lucide="zap" class="w-6 h-6 fill-current"></i>
+                </div>
+                <div>
+                    <span class="text-xl font-black tracking-wider text-white">TEGAR<span class="text-emerald-400">CASH</span></span>
+                    <span class="block text-[10px] text-emerald-400 font-semibold tracking-widest -mt-1 uppercase">ANDA BAYAR KAMI GUBYAR</span>
+                </div>
+            </div>
+            
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-300">
+                <a href="#kalkulator" class="hover:text-emerald-400 transition-colors">Simulasi Pinjaman</a>
+                <a href="#daftar-hutang" class="hover:text-emerald-400 transition-colors">Daftar Hutang</a>
+                <a href="#cara-bayar" class="hover:text-emerald-400 transition-colors">Cara Bayar</a>
+                <a href="#keunggulan" class="hover:text-emerald-400 transition-colors">Keunggulan</a>
+                <a href="#faq" class="hover:text-emerald-400 transition-colors">FAQ</a>
+            </nav>
+
+            <div class="flex items-center space-x-3">
+                <button onclick="openPaymentModal()" class="hidden sm:flex items-center space-x-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-sm font-semibold px-3 py-2 rounded-xl transition-all">
+                    <i data-lucide="credit-card" class="w-4 h-4 text-emerald-400"></i>
+                    <span>Info Rekening</span>
+                </button>
+                <a href="#pengajuan-form" class="bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold px-4 py-2 rounded-xl transition-all shadow-lg shadow-emerald-500/20 text-sm">
+                    Cairkan Sekarang
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+        <!-- Hero Section -->
+        <section class="relative overflow-hidden pt-12 pb-20 lg:pt-20 lg:pb-28">
+            <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(16,185,129,0.15),transparent_50%)]"></div>
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="grid lg:grid-cols-12 gap-12 items-center">
+                    
+                    <!-- Left Column: Tagline -->
+                    <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                        <div class="inline-flex items-center space-x-2 bg-emerald-950/80 border border-emerald-500/30 px-3 py-1.5 rounded-full text-xs font-semibold text-emerald-400">
+                            <i data-lucide="sparkles" class="w-4 h-4"></i>
+                            <span>Inovasi Fintech Terpercaya - Sensasi Cair Maksimal</span>
+                        </div>
+                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-tight">
+                            Anda Bayar, <br class="hidden sm:inline">
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-green-500">
+                                Kami Gubyar! 💸
+                            </span>
+                        </h1>
+                        <p class="text-slate-400 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0">
+                            Solusi keuangan serba gubyar! Begitu Anda ajukan dan bayar administrasi ringan, dana segar langsung gubyar meriah cair ke rekening Anda dalam hitungan detik.
+                        </p>
+                        <div class="pt-2 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                            <a href="#kalkulator" class="w-full sm:w-auto text-center bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold px-8 py-3.5 rounded-xl transition-all shadow-lg shadow-emerald-500/25 flex items-center justify-center space-x-2">
+                                <span>Hitung Simulasi</span>
+                                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                            </a>
+                            <a href="#keunggulan" class="w-full sm:w-auto text-center border border-slate-700 hover:border-slate-600 text-slate-300 font-semibold px-6 py-3.5 rounded-xl transition-all">
+                                Pelajari Sistem
+                            </a>
+                        </div>
+                        
+                        <div class="grid grid-cols-3 gap-4 pt-8 border-t border-slate-800/80 text-center lg:text-left">
+                            <div>
+                                <p class="text-2xl font-extrabold text-emerald-400">100%</p>
+                                <p class="text-xs text-slate-400">Gubyar Pasti Cair</p>
+                            </div>
+                            <div>
+                                <p class="text-2xl font-extrabold text-emerald-400">3 Menit</p>
+                                <p class="text-xs text-slate-400">Proses Instant</p>
+                            </div>
+                            <div>
+                                <p class="text-2xl font-extrabold text-emerald-400">Rp 0</p>
+                                <p class="text-xs text-slate-400">Biaya Tersembunyi</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Interactive Loan Calculator -->
+                    <div id="kalkulator" class="lg:col-span-5">
+                        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8 shadow-2xl relative">
+                            <div class="absolute -top-3 right-6 bg-emerald-500 text-slate-950 font-bold text-xs px-3 py-1 rounded-full uppercase tracking-wider">
+                                Calculator Pro
+                            </div>
+                            <h3 class="text-xl font-bold text-white mb-6 flex items-center space-x-2">
+                                <i data-lucide="calculator" class="text-emerald-400"></i>
+                                <span>Simulasi Pinjaman</span>
+                            </h3>
+
+                            <div class="space-y-6">
+                                <!-- Nominal Slider -->
+                                <div>
+                                    <div class="flex justify-between items-center mb-2">
+                                        <label class="text-xs font-semibold text-slate-400 uppercase">Nominal Pinjaman</label>
+                                        <span id="loan-amount-display" class="text-lg font-extrabold text-emerald-400">Rp 2.500.000</span>
+                                    </div>
+                                    <input type="range" id="loan-amount" min="500000" max="10000000" step="500000" value="2500000" class="w-full">
+                                    <div class="flex justify-between text-[10px] text-slate-500 mt-1">
+                                        <span>Rp 500rb</span>
+                                        <span>Rp 10 Juta</span>
+                                    </div>
+                                </div>
+
+                                <!-- Tenor Slider -->
+                                <div>
+                                    <div class="flex justify-between items-center mb-2">
+                                        <label class="text-xs font-semibold text-slate-400 uppercase">Tenor (Jangka Waktu)</label>
+                                        <span id="tenor-display" class="text-lg font-extrabold text-emerald-400">6 Bulan</span>
+                                    </div>
+                                    <input type="range" id="tenor" min="1" max="12" step="1" value="6" class="w-full">
+                                    <div class="flex justify-between text-[10px] text-slate-500 mt-1">
+                                        <span>1 Bulan</span>
+                                        <span>12 Bulan</span>
+                                    </div>
+                                </div>
+
+                                <!-- Calculation Result Breakdown -->
+                                <div class="bg-slate-950/70 rounded-xl p-4 space-y-3 border border-slate-800">
+                                    <div class="flex justify-between text-sm">
+                                        <span class="text-slate-400">Pinjaman Diterima</span>
+                                        <span id="received-amount" class="font-bold text-white">Rp 2.500.000</span>
+                                    </div>
+                                    <div class="flex justify-between text-sm">
+                                        <span class="text-slate-400">Bunga & Admin</span>
+                                        <span class="font-bold text-emerald-400">Rp 0 (GRATIS)</span>
+                                    </div>
+                                    <div class="flex justify-between text-sm">
+                                        <span class="text-slate-400">Estimasi Cicilan/Bulan</span>
+                                        <span id="monthly-payment" class="font-bold text-emerald-400">Rp 0 / bln</span>
+                                    </div>
+                                    <div class="border-t border-slate-800 pt-3 flex justify-between items-center">
+                                        <span class="text-sm font-semibold text-slate-300">Total Pengembalian</span>
+                                        <span id="total-repayment" class="text-xl font-black text-emerald-400">Rp 0</span>
+                                    </div>
+                                </div>
+
+                                <div class="p-3 bg-emerald-950/40 border border-emerald-500/20 rounded-xl text-xs text-emerald-300 flex items-start space-x-2">
+                                    <i data-lucide="shield-check" class="w-5 h-5 shrink-0 text-emerald-400"></i>
+                                    <span>Prinsip Utama: "Anda Bayar, Kami Gubyar!" - Dapatkan pencairan instan tanpa basa-basi!</span>
+                                </div>
+
+                                <a href="#pengajuan-form" class="block text-center w-full bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold py-3 rounded-xl transition-all shadow-md">
+                                    Lanjutkan Pengajuan
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Feature Section -->
+        <section id="keunggulan" class="py-16 bg-slate-900/50 border-y border-slate-800">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-12">
+                    <h2 class="text-3xl font-extrabold text-white">Kenapa Memilih <span class="text-emerald-400">Tegar Cash?</span></h2>
+                    <p class="text-slate-400 mt-2">Fintech masa kini yang memahami beban hidup Anda tanpa menambah masalah baru.</p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Card 1 -->
+                    <div class="bg-slate-900 p-6 rounded-2xl border border-slate-800 hover:border-emerald-500/50 transition-all group">
+                        <div class="w-12 h-12 bg-emerald-500/10 text-emerald-400 rounded-xl flex items-center justify-center mb-4 group-hover:bg-emerald-500 group-hover:text-slate-950 transition-all">
+                            <i data-lucide="zap" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">Pencairan Kilat</h3>
+                        <p class="text-slate-400 text-sm">Proses verifikasi otomatis dalam 3 menit. Dana langsung ditransfer ke rekening atau e-wallet pilihan Anda.</p>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="bg-slate-900 p-6 rounded-2xl border border-slate-800 hover:border-emerald-500/50 transition-all group">
+                        <div class="w-12 h-12 bg-emerald-500/10 text-emerald-400 rounded-xl flex items-center justify-center mb-4 group-hover:bg-emerald-500 group-hover:text-slate-950 transition-all">
+                            <i data-lucide="party-popper" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">Sensasi Gubyar</h3>
+                        <p class="text-slate-400 text-sm">Uang langsung masuk rekening dengan notifikasi yang bikin senyum. Hiburan dan solusi finansial jadi satu!</p>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="bg-slate-900 p-6 rounded-2xl border border-slate-800 hover:border-emerald-500/50 transition-all group">
+                        <div class="w-12 h-12 bg-emerald-500/10 text-emerald-400 rounded-xl flex items-center justify-center mb-4 group-hover:bg-emerald-500 group-hover:text-slate-950 transition-all">
+                            <i data-lucide="file-check" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">Tanpa Syarat Ribet</h3>
+                        <p class="text-slate-400 text-sm">Cukup NIK dan alasan pinjam yang masuk akal. Tanpa jaminan sertifikat atau BPKB.</p>
+                    </div>
+                        <h3 class="text-xl font-bold text-white mb-2">Bebas DC & Tagihan</h3>
+                        <p class="text-slate-400 text-sm">Tidak ada Debt Collector yang menagih. Tidak ada SMS teror. Hidup tenang, tidur nyenyak setiap malam.</p>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="bg-slate-900 p-6 rounded-2xl border border-slate-800 hover:border-emerald-500/50 transition-all group">
+                        <div class="w-12 h-12 bg-emerald-500/10 text-emerald-400 rounded-xl flex items-center justify-center mb-4 group-hover:bg-emerald-500 group-hover:text-slate-950 transition-all">
+                            <i data-lucide="file-check" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">Tanpa Syarat Ribet</h3>
+                        <p class="text-slate-400 text-sm">Cukup NIK dan alasan pinjam yang masuk akal. Tanpa slip gaji, tanpa jaminan sertifikat atau BPKB.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dynamic Debtors List Section (Daftar Hutang Pemutang) -->
+        <section id="daftar-hutang" class="py-16 bg-slate-950">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+                    <div>
+                        <div class="inline-flex items-center space-x-2 bg-emerald-950/60 border border-emerald-500/30 px-3 py-1 rounded-full text-xs font-semibold text-emerald-400 mb-2">
+                            <i data-lucide="users" class="w-3.5 h-3.5"></i>
+                            <span>Monitoring Real-time</span>
+                        </div>
+                        <h2 class="text-2xl sm:text-3xl font-extrabold text-white">Daftar Hutang & Pemutang</h2>
+                        <p class="text-slate-400 text-sm mt-1">Transparansi data nasabah aktif Tegar Cash yang sedang menikmati gubyar.</p>
+                    </div>
+
+                    <!-- Search Bar & Filter -->
+                    <div class="flex flex-col sm:flex-row gap-3">
+                        <div class="relative min-w-[240px]">
+                            <i data-lucide="search" class="w-4 h-4 text-slate-500 absolute left-3.5 top-1/2 -translate-y-1/2"></i>
+                            <input type="text" id="search-debtor" placeholder="Cari nama atau NIK..." class="w-full bg-slate-900 border border-slate-800 rounded-xl pl-10 pr-4 py-2 text-sm text-white focus:outline-none focus:border-emerald-500 transition-colors">
+                        </div>
+                        <select id="filter-status" class="bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-sm text-slate-300 focus:outline-none focus:border-emerald-500">
+                            <option value="ALL">Semua Status</option>
+                            <option value="Aktif">Status: Aktif</option>
+                            <option value="Jatuh Tempo">Status: Jatuh Tempo</option>
+                            <option value="Lunas">Status: Lunas</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Debtor Table -->
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-slate-950/80 border-b border-slate-800 text-xs text-slate-400 uppercase tracking-wider">
+                                    <th class="py-4 px-6">Nasabah</th>
+                                    <th class="py-4 px-6">Nominal Hutang</th>
+                                    <th class="py-4 px-6">Sisa Tenor</th>
+                                    <th class="py-4 px-6">Status</th>
+                                    <th class="py-4 px-6 text-center">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="debtor-table-body" class="divide-y divide-slate-800/60 text-sm">
+                                <!-- Dynamic debtor rows will be rendered here by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="no-debtors-msg" class="hidden p-8 text-center text-slate-500 text-sm">
+                        Data pemutang tidak ditemukan.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Cara Bayar Section (BCA Account Details) -->
+        <section id="cara-bayar" class="py-16 bg-slate-900/40 border-t border-slate-800">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-12">
+                    <span class="text-xs font-extrabold text-emerald-400 uppercase tracking-widest bg-emerald-950/60 border border-emerald-500/20 px-3 py-1 rounded-full">Metode Pembayaran Resmi</span>
+                    <h2 class="text-3xl font-extrabold text-white mt-3">Pembayaran Pelunasan Harian</h2>
+                    <p class="text-slate-400 mt-2 text-sm">Lakukan pelunasan cicilan / hutang Tegar Cash secara resmi hanya ke rekening BCA di bawah ini.</p>
+                </div>
+
+                <div class="grid lg:grid-cols-12 gap-8 items-start">
+                    <!-- Bank Account Card -->
+                    <div class="lg:col-span-5 bg-gradient-to-br from-slate-900 via-slate-900 to-slate-950 border border-emerald-500/40 rounded-3xl p-6 sm:p-8 shadow-2xl relative overflow-hidden">
+                        <div class="absolute -right-8 -bottom-8 w-40 h-40 bg-emerald-500/10 rounded-full blur-2xl pointer-events-none"></div>
+                        
+                        <div class="flex justify-between items-center mb-6">
+                            <span class="bg-blue-600 text-white text-xs font-black px-3 py-1 rounded-md tracking-widest uppercase">BANK BCA</span>
+                            <span class="text-xs text-emerald-400 font-semibold flex items-center space-x-1">
+                                <i data-lucide="shield-check" class="w-4 h-4"></i>
+                                <span>Rekening Resmi Tegar Cash</span>
+                            </span>
+                        </div>
+
+                        <div class="space-y-4">
+                            <div>
+                                <p class="text-xs text-slate-400 uppercase font-medium">Nomor Rekening Tujuan</p>
+                                <div class="flex items-center justify-between bg-slate-950 border border-slate-800 rounded-xl p-3.5 mt-1">
+                                    <span id="bca-account-no" class="text-xl sm:text-2xl font-mono font-bold text-white tracking-wider">5310881637</span>
+                                    <button onclick="copyToClipboard('5310881637', 'Nomor Rekening BCA')" class="bg-emerald-500/20 hover:bg-emerald-500 text-emerald-400 hover:text-slate-950 font-semibold text-xs px-3 py-2 rounded-lg transition-all flex items-center space-x-1 shrink-0 ml-2">
+                                        <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                                        <span>Salin</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div>
+                                <p class="text-xs text-slate-400 uppercase font-medium">Atas Nama (A.N)</p>
+                                <p class="text-lg font-bold text-emerald-400 mt-1">TEGAR SAPUTRA</p>
+                            </div>
+
+                            <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-400">
+                                <span>Mata Uang: IDR (Rupiah)</span>
+                                <span>Verifikasi Instan</span>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 pt-4 border-t border-slate-800/80">
+                            <button onclick="openConfirmModal()" class="w-full bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold py-3.5 rounded-xl transition-all shadow-lg shadow-emerald-500/20 flex items-center justify-center space-x-2">
+                                <i data-lucide="file-check-2" class="w-4 h-4"></i>
+                                <span>Konfirmasi Transfer Pembayaran</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Payment Steps Accordion/Tabs -->
+                    <div class="lg:col-span-7 bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8">
+                        <h3 class="text-xl font-bold text-white mb-6 flex items-center space-x-2">
+                            <i data-lucide="smartphone" class="text-emerald-400 w-5 h-5"></i>
+                            <span>Panduan Cara Transfer</span>
+                        </h3>
+
+                        <div class="space-y-4 text-sm">
+                            <!-- m-BCA -->
+                            <div class="bg-slate-950 border border-slate-800 rounded-2xl p-4">
+                                <h4 class="font-bold text-white flex items-center space-x-2 mb-2">
+                                    <span class="w-6 h-6 bg-emerald-500/20 text-emerald-400 rounded-full flex items-center justify-center text-xs">1</span>
+                                    <span>Via Mobile Banking (m-BCA)</span>
+                                </h4>
+                                <ol class="list-decimal list-inside text-slate-400 space-y-1.5 pl-2 text-xs sm:text-sm">
+                                    <li>Buka aplikasi <strong>BCA mobile</strong> & pilih menu <strong>m-Transfer</strong>.</li>
+                                    <li>Pilih <strong>Antar Rekening</strong> pada daftar Transfer.</li>
+                                    <li>Masukkan No. Rekening: <strong class="text-emerald-400">5310881637</strong> (a.n TEGAR SAPUTRA).</li>
+                                    <li>Masukkan nominal pelunasan sesuai tagihan Anda.</li>
+                                    <li>Masukkan PIN m-BCA dan simpan bukti transaksi Anda.</li>
+                                </ol>
+                            </div>
+
+                            <!-- ATM BCA -->
+                            <div class="bg-slate-950 border border-slate-800 rounded-2xl p-4">
+                                <h4 class="font-bold text-white flex items-center space-x-2 mb-2">
+                                    <span class="w-6 h-6 bg-emerald-500/20 text-emerald-400 rounded-full flex items-center justify-center text-xs">2</span>
+                                    <span>Via ATM BCA</span>
+                                </h4>
+                                <ol class="list-decimal list-inside text-slate-400 space-y-1.5 pl-2 text-xs sm:text-sm">
+                                    <li>Masukkan kartu ATM & PIN BCA Anda.</li>
+                                    <li>Pilih menu <strong>Transaksi Lainnya</strong> &rarr; <strong>Transfer</strong> &rarr; <strong>Ke Rek BCA</strong>.</li>
+                                    <li>Masukkan nomor rekening <strong class="text-emerald-400">5310881637</strong>.</li>
+                                    <li>Pastikan nama penerima <strong>TEGAR SAPUTRA</strong> dan konfirmasi Ya.</li>
+                                </ol>
+                            </div>
+
+                            <!-- Transfer Bank Lain -->
+                            <div class="bg-slate-950 border border-slate-800 rounded-2xl p-4">
+                                <h4 class="font-bold text-white flex items-center space-x-2 mb-2">
+                                    <span class="w-6 h-6 bg-emerald-500/20 text-emerald-400 rounded-full flex items-center justify-center text-xs">3</span>
+                                    <span>Via Transfer Antar Bank (Mandiri, BRI, BNI, Dana, dll)</span>
+                                </h4>
+                                <p class="text-xs sm:text-sm text-slate-400 pl-2">
+                                    Pilih Bank Tujuan <strong>Bank BCA (Kode 014)</strong> & masukkan No. Rekening <strong class="text-emerald-400">5310881637</strong> a.n <strong>TEGAR SAPUTRA</strong>.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Application Form Section -->
+        <section id="pengajuan-form" class="py-16">
+            <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-10 shadow-2xl">
+                    <div class="text-center mb-8">
+                        <h2 class="text-2xl sm:text-3xl font-extrabold text-white">Formulir Pengajuan Instan</h2>
+                        <p class="text-slate-400 text-sm mt-1">Isi data singkat berikut untuk langsung mencairkan dana Anda.</p>
+                    </div>
+
+                    <form id="loan-form" class="space-y-5">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-300 uppercase mb-2">Nama Lengkap (Sesuai KTP)</label>
+                            <input type="text" id="fullname" required placeholder="Contoh: Budi Santoso" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-white placeholder-slate-600 focus:outline-none focus:border-emerald-500 transition-colors">
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-300 uppercase mb-2">Nomor NIK (KTP)</label>
+                                <input type="number" id="nik" required placeholder="3271xxxxxxxxxxxx" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-white placeholder-slate-600 focus:outline-none focus:border-emerald-500 transition-colors">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-300 uppercase mb-2">Nomor HP / WhatsApp</label>
+                                <input type="tel" id="phone" required placeholder="081234567890" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-white placeholder-slate-600 focus:outline-none focus:border-emerald-500 transition-colors">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-300 uppercase mb-2">Alasan Meminjam</label>
+                            <select id="reason" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-emerald-500 transition-colors">
+                                <option value="">-- Pilih Alasan --</option>
+                                <option value="Beli Skincare">Beli Skincare / Topup Game</option>
+                                <option value="Bayar SKS / Tugas">Bayar Uang Kuliah / Sekolah</option>
+                                <option value="Kebutuhan Mendadak">Kebelet Pengen Gaya</option>
+                                <option value="Pengen Merasakan Gubyar">Pengen Rasain Sensasi "Kami Gubyar!"</option>
+                            </select>
+                        </div>
+
+                        <div class="flex items-center space-x-3 pt-2">
+                            <input type="checkbox" id="agreement" required class="w-4 h-4 rounded bg-slate-950 border-slate-800 text-emerald-500 focus:ring-emerald-500">
+                            <label for="agreement" class="text-xs text-slate-400">Saya setuju dengan prinsip "Anda Bayar, Kami Gubyar" dan memahami simulasi ini.</label>
+                        </div>
+
+                        <button type="submit" class="w-full bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold py-4 rounded-xl transition-all shadow-lg shadow-emerald-500/20 text-base">
+                            Cairkan Pinjaman (Gubyar Now)
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section id="faq" class="py-16 bg-slate-900/30 border-t border-slate-800">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-2xl font-extrabold text-white text-center mb-8">Pertanyaan Sering Diajukan (FAQ)</h2>
+                
+                <div class="space-y-4">
+                    <div class="bg-slate-900 border border-slate-800 rounded-xl p-5">
+                        <h4 class="font-bold text-white flex items-center justify-between">
+                            <span>Apa maksudnya "Anda Bayar, Kami Gubyar"?</span>
+                            <i data-lucide="help-circle" class="w-5 h-5 text-emerald-400"></i>
+                        </h4>
+                        <p class="text-sm text-slate-400 mt-2">Slogan khas Tegar Cash! Begitu syarat dan transaksi terpenuhi, dana langsung cair secara احتفالي / gubyar tanpa penundaan!</p>
+                    </div>
+
+                    <div class="bg-slate-900 border border-slate-800 rounded-xl p-5">
+                        <h4 class="font-bold text-white flex items-center justify-between">
+                            <span>Berapa lama proses verifikasi pengajuan?</span>
+                            <i data-lucide="clock" class="w-5 h-5 text-emerald-400"></i>
+                        </h4>
+                        <p class="text-sm text-slate-400 mt-2">Proses simulasi verifikasi selesai dalam hitungan detik setelah Anda menekan tombol cairkan.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal BCA Quick Payment Info -->
+    <div id="payment-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm hidden">
+        <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl space-y-5 relative">
+            <button onclick="closePaymentModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 bg-blue-600/20 text-blue-400 rounded-xl flex items-center justify-center">
+                    <i data-lucide="landmark" class="w-5 h-5"></i>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold text-white">Info Rekening Pembayaran</h3>
+                    <p class="text-xs text-slate-400">Pembayaran resmi Tegar Cash</p>
+                </div>
+            </div>
+
+            <div class="bg-slate-950 border border-slate-800 rounded-2xl p-4 space-y-3">
+                <div>
+                    <span class="text-[10px] text-slate-500 uppercase tracking-widest">Bank Tujuan</span>
+                    <p class="text-sm font-bold text-blue-400">BANK BCA</p>
+                </div>
+                <div>
+                    <span class="text-[10px] text-slate-500 uppercase tracking-widest">Nomor Rekening</span>
+                    <div class="flex items-center justify-between mt-0.5">
+                        <span class="text-lg font-mono font-bold text-white">5310881637</span>
+                        <button onclick="copyToClipboard('5310881637', 'Nomor Rekening BCA')" class="text-xs bg-emerald-500/20 text-emerald-400 hover:bg-emerald-500 hover:text-slate-950 px-2.5 py-1 rounded-lg transition-all font-medium">
+                            Salin No. Rek
+                        </button>
+                    </div>
+                </div>
+                <div>
+                    <span class="text-[10px] text-slate-500 uppercase tracking-widest">Atas Nama</span>
+                    <p class="text-sm font-bold text-emerald-400">TEGAR SAPUTRA</p>
+                </div>
+            </div>
+
+            <button onclick="closePaymentModal(); openConfirmModal();" class="w-full bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold py-3 rounded-xl transition-all">
+                Konfirmasi Pembayaran Saya
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal Konfirmasi Pembayaran / Upload Bukti -->
+    <div id="confirm-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm hidden">
+        <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl space-y-5 relative">
+            <button onclick="closeConfirmModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+            <div>
+                <h3 class="text-xl font-bold text-white">Konfirmasi Pembayaran</h3>
+                <p class="text-xs text-slate-400 mt-1">Kirim bukti transfer pelunasan ke rekening BCA Tegar Saputra.</p>
+            </div>
+
+            <form id="confirm-payment-form" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-300 uppercase mb-1">Nama Peminjam</label>
+                    <input type="text" id="pay-name" required placeholder="Sesuai nama pendaftaran" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-300 uppercase mb-1">Nominal Ditransfer (Rp)</label>
+                    <input type="number" id="pay-amount" required placeholder="Contoh: 1500000" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-300 uppercase mb-1">Catatan / Bukti Transfer</label>
+                    <input type="text" id="pay-ref" placeholder="Contoh: Transfer via m-BCA jam 14:00" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500">
+                </div>
+                <button type="submit" class="w-full bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold py-3.5 rounded-xl transition-all shadow-lg shadow-emerald-500/20">
+                    Kirim Konfirmasi Pelunasan
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Success Popup -->
+    <div id="success-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm hidden">
+        <div class="bg-slate-900 border border-emerald-500/40 rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl text-center space-y-4 relative animate-fade-in">
+            <div class="w-16 h-16 bg-emerald-500/20 text-emerald-400 rounded-full flex items-center justify-center mx-auto border border-emerald-500/30">
+                <i data-lucide="sparkles" class="w-10 h-10"></i>
+            </div>
+            
+            <h3 class="text-2xl font-extrabold text-white">FIX GUBYAR CAIR! 🎉</h3>
+            
+            <div class="bg-slate-950 rounded-2xl p-4 text-left space-y-2 border border-slate-800 text-sm">
+                <div class="flex justify-between">
+                    <span class="text-slate-400">Penerima:</span>
+                    <span id="modal-name" class="font-semibold text-white">-</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-slate-400">Nominal Cair:</span>
+                    <span id="modal-amount" class="font-bold text-emerald-400">-</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-slate-400">Status Pencairan:</span>
+                    <span class="font-semibold text-emerald-400">GUBYAR SUCCESS</span>
+                </div>
+            </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 bg-emerald-500 text-slate-950 font-bold px-4 py-3 rounded-xl shadow-2xl flex items-center space-x-2 transition-all duration-300 transform translate-y-20 opacity-0 pointer-events-none">
+        <i data-lucide="check-circle-2" class="w-5 h-5"></i>
+        <span id="toast-message">Nomor Rekening berhasil disalin!</span>
+    </div>
+
+    <!-- Footer & Educational Disclaimer -->
+    <footer class="bg-slate-950 border-t border-slate-800 py-8 text-center text-xs text-slate-500">
+        <div class="max-w-7xl mx-auto px-4 space-y-4">
+            <div class="flex items-center justify-center space-x-2 text-slate-400">
+                <i data-lucide="shield-alert" class="w-4 h-4 text-yellow-500"></i>
+                <span class="font-semibold text-yellow-500">DISCLAIMER & CATATAN PENTING</span>
+            </div>
+            <p class="max-w-3xl mx-auto leading-relaxed">
+                Website ini (<strong>Tegar Cash - Anda Bayar Kami Gubyar</strong>) hanyalah <strong>SIMULASI HIBURAN / EDUKASI</strong>. Website ini tidak melakukan transaksi keuangan nyata, tidak menyalurkan pinjaman sungguhan, dan tidak memungut biaya apapun. Hati-hati terhadap pinjaman online ilegal di dunia nyata. Pastikan selalu menggunakan layanan keuangan terdaftar resmi di OJK.
+            </p>
+            <p class="pt-2 text-slate-600">
+                &copy; 2026 Tegar Cash. All Rights Reserved. Made for learning purposes.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Interactive Script -->
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Sample Debtors Data
+        let debtorsList = [
+            { id: 1, name: "Budi Santoso", nik: "3271012398210001", amount: 2500000, tenor: "2 Bulan", status: "Aktif" },
+            { id: 2, name: "Siti Rahmawati", nik: "3271015698210002", amount: 1500000, tenor: "1 Bulan", status: "Jatuh Tempo" },
+            { id: 3, name: "Agus Pratama", nik: "3271018898210003", amount: 5000000, tenor: "Lunas", status: "Lunas" },
+            { id: 4, name: "Rizky Ramadhan", nik: "3271019998210004", amount: 3000000, tenor: "4 Bulan", status: "Aktif" }
+        ];
+
+        // Calculator Elements
+        const loanAmountInput = document.getElementById('loan-amount');
+        const tenorInput = document.getElementById('tenor');
+
+        const loanAmountDisplay = document.getElementById('loan-amount-display');
+        const tenorDisplay = document.getElementById('tenor-display');
+        const receivedAmount = document.getElementById('received-amount');
+        const monthlyPayment = document.getElementById('monthly-payment');
+        const totalRepayment = document.getElementById('total-repayment');
+
+        // Form & Modal Elements
+        const loanForm = document.getElementById('loan-form');
+        const successModal = document.getElementById('success-modal');
+        const paymentModal = document.getElementById('payment-modal');
+        const confirmModal = document.getElementById('confirm-modal');
+        const confirmPaymentForm = document.getElementById('confirm-payment-form');
+
+        const modalName = document.getElementById('modal-name');
+        const modalAmount = document.getElementById('modal-amount');
+
+        // Search & Filter
+        const searchInput = document.getElementById('search-debtor');
+        const filterStatusSelect = document.getElementById('filter-status');
+
+        // Formatter function for Currency
+        function formatRupiah(number) {
+            return new Intl.NumberFormat('id-ID', {
+                style: 'currency',
+                currency: 'IDR',
+                maximumFractionDigits: 0
+            }).format(number);
+        }
+
+        // Render Debtor Table
+        function renderDebtors() {
+            const tbody = document.getElementById('debtor-table-body');
+            const noDataMsg = document.getElementById('no-debtors-msg');
+            const query = searchInput.value.toLowerCase().trim();
+            const filterStatus = filterStatusSelect.value;
+
+            tbody.innerHTML = '';
+
+            const filtered = debtorsList.filter(item => {
+                const matchesSearch = item.name.toLowerCase().includes(query) || item.nik.includes(query);
+                const matchesFilter = filterStatus === 'ALL' || item.status === filterStatus;
+                return matchesSearch && matchesFilter;
+            });
+
+            if (filtered.length === 0) {
+                noDataMsg.classList.remove('hidden');
+                return;
+            } else {
+                noDataMsg.classList.add('hidden');
+            }
+
+            filtered.forEach(debtor => {
+                let badgeClass = "bg-emerald-500/10 text-emerald-400 border-emerald-500/30";
+                if (debtor.status === 'Jatuh Tempo') {
+                    badgeClass = "bg-rose-500/10 text-rose-400 border-rose-500/30 animate-pulse";
+                } else if (debtor.status === 'Lunas') {
+                    badgeClass = "bg-slate-800 text-slate-400 border-slate-700";
+                }
+
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-slate-950/50 transition-colors";
+                tr.innerHTML = `
+                    <td class="py-4 px-6 font-semibold text-white">
+                        <div>${debtor.name}</div>
+                        <div class="text-[10px] text-slate-500 font-mono">NIK: ${debtor.nik}</div>
+                    </td>
+                    <td class="py-4 px-6 font-bold text-emerald-400">${formatRupiah(debtor.amount)}</td>
+                    <td class="py-4 px-6 text-slate-300 text-xs">${debtor.tenor}</td>
+                    <td class="py-4 px-6">
+                        <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold border ${badgeClass}">
+                            ${debtor.status}
+                        </span>
+                    </td>
+                    <td class="py-4 px-6 text-center">
+                        ${debtor.status !== 'Lunas' ? `
+                            <button onclick="payForDebtor('${debtor.name}', ${debtor.amount})" class="bg-emerald-500 hover:bg-emerald-600 text-slate-950 text-xs font-bold px-3 py-1.5 rounded-lg transition-all shadow-sm">
+                                Bayar Sekarang
+                            </button>
+                        ` : `
+                            <span class="text-xs text-slate-500 flex items-center justify-center space-x-1">
+                                <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400"></i>
+                                <span>Lunas</span>
+                            </span>
+                        `}
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            lucide.createIcons();
+        }
+
+        // Search & Filter Events
+        searchInput.addEventListener('input', renderDebtors);
+        filterStatusSelect.addEventListener('change', renderDebtors);
+
+        // Update Calculator Values
+        function updateCalculator() {
+            const amount = parseInt(loanAmountInput.value);
+            const tenor = parseInt(tenorInput.value);
+
+            loanAmountDisplay.textContent = formatRupiah(amount);
+            tenorDisplay.textContent = tenor + " Bulan";
+            receivedAmount.textContent = formatRupiah(amount);
+
+            const monthly = Math.round((amount / tenor));
+            monthlyPayment.textContent = formatRupiah(monthly) + " / bln";
+            totalRepayment.textContent = formatRupiah(amount);
+        }
+
+        // Event Listeners for Sliders
+        loanAmountInput.addEventListener('input', updateCalculator);
+        tenorInput.addEventListener('input', updateCalculator);
+
+        // Form Submission (Adding new debtor dynamically)
+        loanForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('fullname').value;
+            const nik = document.getElementById('nik').value;
+            const amount = parseInt(loanAmountInput.value);
+            const tenor = parseInt(tenorInput.value);
+
+            // Add to debtors list
+            debtorsList.unshift({
+                id: Date.now(),
+                name: name,
+                nik: nik,
+                amount: amount,
+                tenor: tenor + " Bulan",
+                status: "Aktif"
+            });
+
+            renderDebtors();
+
+            modalName.textContent = name;
+            modalAmount.textContent = formatRupiah(amount);
+
+            successModal.classList.remove('hidden');
+        });
+
+        // Copy Clipboard Helper
+        function copyToClipboard(text, label) {
+            navigator.clipboard.writeText(text).then(() => {
+                showToast(`${label} (${text}) berhasil disalin!`);
+            }).catch(() => {
+                showToast(`Gagal menyalin. Silakan catat: ${text}`);
+            });
+        }
+
+        // Toast Notification
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toast-message');
+            toastMsg.textContent = msg;
+            
+            toast.classList.remove('translate-y-20', 'opacity-0', 'pointer-events-none');
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0', 'pointer-events-none');
+            }, 3000);
+        }
+
+        // Payment Modal Controls
+        function openPaymentModal() {
+            paymentModal.classList.remove('hidden');
+        }
+        function closePaymentModal() {
+            paymentModal.classList.add('hidden');
+        }
+
+        // Confirm Payment Modal Controls
+        function openConfirmModal() {
+            confirmModal.classList.remove('hidden');
+        }
+        function closeConfirmModal() {
+            confirmModal.classList.add('hidden');
+        }
+
+        function payForDebtor(name, amount) {
+            document.getElementById('pay-name').value = name;
+            document.getElementById('pay-amount').value = amount;
+            openConfirmModal();
+        }
+
+        confirmPaymentForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('pay-name').value;
+            
+            // Mark debtor as Lunas if exists
+            const debtor = debtorsList.find(d => d.name.toLowerCase() === name.toLowerCase());
+            if (debtor) {
+                debtor.status = "Lunas";
+                renderDebtors();
+            }
+
+            closeConfirmModal();
+            showToast(`Konfirmasi pelunasan ${name} berhasil dikirim!`);
+            confirmPaymentForm.reset();
+        });
+
+        // Close Modal
+        function closeModal() {
+            successModal.classList.add('hidden');
+            loanForm.reset();
+            updateCalculator();
+        }
+
+        // Initial Initialization
+        updateCalculator();
+        renderDebtors();
+    </script>
+</body>
+</html>
